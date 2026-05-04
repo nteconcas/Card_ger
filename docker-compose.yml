@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  gerador-cartoes:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gerador-cartoes
+    restart: unless-stopped
+    ports:
+      - "5003:5003"
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
