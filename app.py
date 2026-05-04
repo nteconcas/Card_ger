@@ -17,22 +17,23 @@ def gerar():
     logo_url = request.form.get('logo_url', '')
     titulo_cabecalho = request.form.get('titulo_cabecalho', 'CARTÃO DE ACESSO')
     
-    # Processa a lista de usuários (ex: separados por quebra de linha)
-    usuarios_input = request.form.get('usuarios', '')
-    
+    # Processa o arquivo Excel
+    arquivo = request.files.get('planilha')
     usuarios = []
-    for linha in usuarios_input.strip().split('\n'):
-        if linha.strip():
-            partes = linha.split(';')
-            if len(partes) >= 3:
-                matricula = partes[0].strip()
-                nome = partes[1].strip()
-                info = partes[2].strip()
-                usuarios.append({
-                    'matricula': matricula,
-                    'nome': nome,
-                    'info': info
-                })
+    
+    if arquivo and arquivo.filename.endswith(('.xlsx', '.xls')):
+        try:
+            import pandas as pd
+            df = pd.read_excel(arquivo)
+            for _, row in df.iterrows():
+                if len(row) >= 3:
+                    usuarios.append({
+                        'matricula': str(row.iloc[0]).strip() if pd.notna(row.iloc[0]) else '',
+                        'nome': str(row.iloc[1]).strip() if pd.notna(row.iloc[1]) else '',
+                        'info': str(row.iloc[2]).strip() if pd.notna(row.iloc[2]) else ''
+                    })
+        except Exception as e:
+            print(f"Erro ao ler arquivo: {e}")
 
     return render_template(
         'print_cards.html',

@@ -12,10 +12,10 @@
             <div class="card-body p-4">
                 <h2 class="h4 mb-4 text-center text-primary">Gerador de Cartões de Acesso</h2>
                 
-                <form action="/gerar" method="POST" target="_blank">
+                <form action="/gerar" method="POST" enctype="multipart/form-data" target="_blank">
                     <div class="mb-3">
-                        <label for="titulo_cabecalho" class="form-label">Título do Cabeçalho</label>
-                        <input type="text" class="form-control" id="titulo_cabecalho" name="titulo_cabecalho" value="IDENTIFICAÇÃO DE ACESSO" required>
+                        <label for="titulo_cabecalho" class="form-label">Título do Cabeçalho (Pode conter múltiplas linhas)</label>
+                        <textarea class="form-control" id="titulo_cabecalho" name="titulo_cabecalho" rows="2" required>IDENTIFICAÇÃO DE ACESSO</textarea>
                     </div>
                     
                     <div class="mb-3">
@@ -24,9 +24,9 @@
                     </div>
                     
                     <div class="mb-3">
-                        <label for="usuarios" class="form-label">Dados dos Usuários</label>
-                        <textarea class="form-control" id="usuarios" name="usuarios" rows="8" placeholder="Matrícula; Nome Completo; Informações&#10;12345; João da Silva; Professor / Setor A&#10;54321; Maria Souza; Aluno / 3º Ano" required></textarea>
-                        <div class="form-text">Insira os dados separados por ponto e vírgula <code>;</code>, um por linha.</div>
+                        <label for="planilha" class="form-label">Planilha de Usuários (.xlsx, .xls)</label>
+                        <input type="file" class="form-control" id="planilha" name="planilha" accept=".xlsx, .xls" required>
+                        <div class="form-text">Envie uma planilha Excel. As 3 primeiras colunas devem ser: Matrícula, Nome e Informações.</div>
                     </div>
                     
                     <button type="submit" class="btn btn-primary w-100">Gerar e Imprimir</button>
