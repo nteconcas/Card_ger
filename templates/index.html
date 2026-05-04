@@ -34,5 +34,27 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const tituloInput = document.getElementById("titulo_cabecalho");
+            const logoInput = document.getElementById("logo_url");
+            
+            // Carregar valores salvos
+            if (localStorage.getItem("titulo_cabecalho")) {
+                tituloInput.value = localStorage.getItem("titulo_cabecalho");
+            }
+            if (localStorage.getItem("logo_url")) {
+                logoInput.value = localStorage.getItem("logo_url");
+            }
+            
+            // Salvar valores ao alterar
+            tituloInput.addEventListener("input", function() {
+                localStorage.setItem("titulo_cabecalho", tituloInput.value);
+            });
+            logoInput.addEventListener("input", function() {
+                localStorage.setItem("logo_url", logoInput.value);
+            });
+        });
+    </script>
 </body>
 </html>
